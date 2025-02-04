@@ -1,7 +1,7 @@
 import pygame
 
-from materials.Button import Button
-from materials.Slider import Slider
+from product.materials.Button import Button
+from product.materials.Slider import Slider
 
 
 class Choice_color_menu:

@@ -1,7 +1,7 @@
 import pygame
-from materials.Button import Button
-from materials.Slider import Slider
-from materials.Message import Message
+from product.materials.Button import Button
+from product.materials.Slider import Slider
+from product.materials.Message import Message
 
 
 def settings_logic(screen, music, volume):

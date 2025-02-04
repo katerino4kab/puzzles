@@ -1,6 +1,8 @@
 import pygame
 from logic.main_menu_logic import main_menu_logic
 from logic.settings_logic import settings_logic
+from product.games.connect import main_menu
+
 
 music = 'music/main_menu_theme.mp3'
 volume = 0
@@ -16,7 +18,7 @@ def main():
         if game_state == 'Menu':
             game_state = main_menu_logic(screen, music, volume)
         if game_state == 'Game':
-            pass
+            game_state = main_menu(screen, music, volume)
         if game_state == 'Created':
             pass
         if game_state == 'Settings':

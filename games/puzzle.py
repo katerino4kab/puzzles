@@ -2,6 +2,7 @@ import pygame
 import random
 import os
 
+
 pygame.init()
 
 
@@ -14,9 +15,8 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 
-# разбивка
 def load_image(image_path):
-    image = pygame.image.load(image_path)
+    image = pygame.image.load()
     image = pygame.transform.scale(image, (WIDTH, HEIGHT))
     tiles = []
     for row in range(GRID_SIZE):
@@ -27,13 +27,13 @@ def load_image(image_path):
     return tiles
 
 
-# Перемешивание
+
 def shuffle_tiles(tiles):
     random.shuffle(tiles)
     return tiles
 
 
-# Проверка, собраны плитки правильно
+
 def is_solved(tiles):
     for i in range(len(tiles)):
         if tiles[i] != original_tiles[i]:
@@ -41,7 +41,7 @@ def is_solved(tiles):
     return True
 
 
-def main(image_path):
+def main_game(image_path, screen, music):
     global original_tiles
     original_tiles = load_image(image_path)
     tiles = shuffle_tiles(original_tiles.copy())
@@ -70,7 +70,6 @@ def main(image_path):
                 mouse_x, mouse_y = event.pos
                 clicked_index = (mouse_y // TILE_SIZE) * GRID_SIZE + (mouse_x // TILE_SIZE)
 
-                # Проверка на возможность перемещения плитки
                 if clicked_index != empty_tile_index and is_adjacent(clicked_index, empty_tile_index):
                     tiles[empty_tile_index], tiles[clicked_index] = tiles[clicked_index], tiles[empty_tile_index]
                     empty_tile_index = clicked_index
@@ -85,7 +84,6 @@ def main(image_path):
 
 
 def is_adjacent(index1, index2):
-    """Проверяет, являются ли две плитки соседними."""
     row1, col1 = divmod(index1, GRID_SIZE)
     row2, col2 = divmod(index2, GRID_SIZE)
     return (row1 == row2 and abs(col1 - col2) == 1) or (col1 == col2 and abs(row1 - row2) == 1)
@@ -96,6 +94,6 @@ if __name__ == "__main__":
     if not os.path.exists(image_path):
         print(f"Изображение по пути '{image_path}' не найдено.")
     else:
-        main(image_path)
+        main_game(image_path)
 
     pygame.quit()

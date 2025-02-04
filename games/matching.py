@@ -1,6 +1,6 @@
 import pygame
 import random
-import os
+
 
 pygame.init()
 
@@ -19,6 +19,14 @@ GREEN = (0, 255, 0)
 font = pygame.font.Font(None, FONT_SIZE)
 
 
+def is_solvable(tiles):
+    inversions = sum(
+        1 for i in range(len(tiles)) for j in range(i + 1, len(tiles))
+        if tiles[i] != 0 and tiles[j] != 0 and tiles[i] > tiles[j]
+    )
+    return inversions % 2 == 0
+
+
 class PuzzleGame:
     def __init__(self):
         self.grid_size = 4
@@ -31,16 +39,9 @@ class PuzzleGame:
     def create_tiles(self):
         tiles = list(range(self.grid_size ** 2))
         random.shuffle(tiles)
-        while not self.is_solvable(tiles):
+        while not is_solvable(tiles):
             random.shuffle(tiles)
         return tiles
-
-    def is_solvable(self, tiles):
-        inversions = sum(
-            1 for i in range(len(tiles)) for j in range(i + 1, len(tiles))
-            if tiles[i] != 0 and tiles[j] != 0 and tiles[i] > tiles[j]
-        )
-        return inversions % 2 == 0
 
     def draw(self, screen):
         screen.fill(WHITE)
@@ -71,10 +72,13 @@ class PuzzleGame:
         return (pygame.time.get_ticks() - self.start_time) // 1000
 
 
-def main():
+def main_m(screen, music, volume):
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("15 Puzzle")
     clock = pygame.time.Clock()
+    pygame.mixer.music.load(music)
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(volume)
 
     game = PuzzleGame()
 
@@ -103,7 +107,3 @@ def main():
         pygame.display.flip()
         clock.tick(FPS)
 
-
-if __name__ == "__main__":
-    main()
-    pygame.quit()

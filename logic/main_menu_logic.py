@@ -1,6 +1,6 @@
 import pygame
-from materials.Message import Message
-from materials.Button import Button
+from product.materials.Message import Message
+from product.materials.Button import Button
 
 
 def main_menu_logic(screen, music, volume):
@@ -34,7 +34,7 @@ def main_menu_logic(screen, music, volume):
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if not mes:
                     if play_btn.mouse_in(event.pos[0], event.pos[1], screen.get_width(), screen.get_height()):
-                        return 'Menu'
+                        return 'Game'
                     if crt_img_btn.mouse_in(event.pos[0], event.pos[1], screen.get_width(), screen.get_height()):
                         return 'Menu'
                     if stg_btn.mouse_in(event.pos[0], event.pos[1], screen.get_width(), screen.get_height()):
