@@ -16,7 +16,7 @@ BLACK = (0, 0, 0)
 
 
 def load_image(image_path):
-    image = pygame.image.load()
+    image = pygame.image.load(image_path)
     image = pygame.transform.scale(image, (WIDTH, HEIGHT))
     tiles = []
     for row in range(GRID_SIZE):
@@ -41,8 +41,11 @@ def is_solved(tiles):
     return True
 
 
-def main_game(image_path, screen, music):
+def main_game(screen, music, volume, image_path):
     global original_tiles
+    pygame.mixer.music.load(music)
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(volume)
     original_tiles = load_image(image_path)
     tiles = shuffle_tiles(original_tiles.copy())
 
@@ -64,7 +67,7 @@ def main_game(image_path, screen, music):
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                return 'Game'
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_x, mouse_y = event.pos
@@ -90,7 +93,7 @@ def is_adjacent(index1, index2):
 
 
 if __name__ == "__main__":
-    image_path = "puzzle.jpg"
+    image_path = "../materials/puzzle.jpg"
     if not os.path.exists(image_path):
         print(f"Изображение по пути '{image_path}' не найдено.")
     else:

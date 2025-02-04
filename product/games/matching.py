@@ -5,7 +5,7 @@ import random
 pygame.init()
 
 
-WIDTH, HEIGHT = 400, 400
+WIDTH, HEIGHT = 600, 600
 TILE_SIZE = WIDTH // 4
 FPS = 30
 FONT_SIZE = 24
@@ -86,7 +86,7 @@ def main_m(screen, music, volume):
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                return 'Game'
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_x, mouse_y = event.pos
